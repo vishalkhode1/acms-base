@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\acquia_base\Commands;
+namespace Acquia\AcquiaCMSBase\Commands;
 
 use Consolidation\OutputFormatters\StructuredData\RowsOfFields;
 use Drush\Commands\DrushCommands;
