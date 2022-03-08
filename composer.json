@@ -1,16 +1,9 @@
 {
     "name": "vishal/acquia_base",
-    "type": "drupal-drush",
+    "type": "project",
     "autoload": {
       "psr-4": {
-        "Acquia\\AcquiaCMSBase\\": "src/"
+        "App\\": "app"
       }
-    },
-    "extra": {
-        "drush": {
-            "services": {
-                "drush.services.yml": "^10 || ^11"
-            }
-        }
     }
 }
