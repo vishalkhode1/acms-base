@@ -1,0 +1,5 @@
+services:
+  acquia_base.commands:
+    class: \Drupal\acquia_base\Commands\AcquiaBaseCommands
+    tags:
+      - { name: drush.command }
