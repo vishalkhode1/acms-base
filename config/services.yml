@@ -1,0 +1,18 @@
+---
+services:
+  _defaults:
+    autoconfigure: true
+    autowire: true
+    public: true
+
+  AcquiaCMS\Cli\:
+    exclude: ../src/Kernel.php
+    public: false
+    resource: ../src
+
+  AcquiaCMS\Cli\Commands\CacheCommand:
+    arguments:
+      $cacheDirectory: "%kernel.cache_dir%"
+
+  Symfony\Component\Console\Application:
+    public: true
