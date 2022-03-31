@@ -9,11 +9,7 @@ use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Process\Process;
 
 set_time_limit(0);
-
-if (!file_exists(__DIR__ . '/../vendor/autoload.php')) {
-    die("Could not find autoloader. Run 'composer install' first.\n");
-}
-require __DIR__ . '/../vendor/autoload.php';
+(@include_once __DIR__ . '/../vendor/autoload.php') || @include_once __DIR__ . '/../../../autoload.php';
 $input = new ArgvInput();
 $env = $input->getParameterOption(['--env', '-e'], $_SERVER['APP_ENV'] ?? 'prod', TRUE);
 $kernel = new Kernel($env, FALSE);
