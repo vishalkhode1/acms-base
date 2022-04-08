@@ -1,0 +1,45 @@
+name: acquia-cms-starterkit CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the develop branch
+  push:
+    branches: [ ACMS-1091-1 ]
+  pull_request:
+    branches: [ develop ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      ORCA_SUT_NAME: acquia/acquia-cms-starterkit
+      ORCA_SUT_BRANCH: dev-ACMS-1091-1
+      ORCA_VERSION: ^3
+      ORCA_PACKAGES_CONFIG_ALTER: ../tests/packages_alter.yml
+      ORCA_ENABLE_NIGHTWATCH: "FALSE"
+      ORCA_JOB: ${{ matrix.orca-job }}
+      ORCA_PHPCS_STANDARD: AcquiaPHP
+    strategy:
+      matrix:
+        orca-job:
+          - STATIC_CODE_ANALYSIS
+    steps:
+      - uses: actions/checkout@v3
+#      - name: Install Dependencies
+#        run: composer install
+      - name: Download ORCA
+        run: |
+          composer create-project --no-dev --ignore-platform-req=php acquia/orca ../orca "$ORCA_VERSION"
+          composer self-update
+      - name: Before Install
+        run: ../orca/bin/ci/before_install.sh
+      - name: Install
+        run: ../orca/bin/ci/install.sh
+      - name: Before script
+        run: ../orca/bin/ci/before_script.sh
+      - name: Script
+        run: ../orca/bin/ci/script.sh
+      - name: After script
+        run: |
+          ../orca/bin/ci/after_success.sh
+          ../orca/bin/ci/after_failure.sh
+          ../orca/bin/ci/after_script.sh
